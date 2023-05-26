@@ -113,7 +113,7 @@ int main(void){
     std::cout << " " << std::endl;
 
 
-    //200 appels uit shelf pakken
+    //55 appels uit shelf pakken
     bool successful = warehouse.pickItems("Apple", 55);
     if (successful) {
     std::cout << "55 appels succesful uit warehouse gepakt " << std::endl;
