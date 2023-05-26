@@ -5,6 +5,7 @@ Shelf::Shelf(){}
 
 bool Shelf::swapPallet(int slot, int slot2){
 
+
     if (slot < 0 || slot >= 4 || slot2 < 0 || slot2 >= 4)
     {
         return false;

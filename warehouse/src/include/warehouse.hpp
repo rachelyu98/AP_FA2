@@ -6,7 +6,6 @@
 #include "shelf.hpp"
 
 
-
 class Warehouse 
 {
     public:

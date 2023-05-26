@@ -290,7 +290,7 @@ TEST_CASE("pick items when there are not enough items", "Warehouse::pickItems"){
     REQUIRE(warehouse.shelves[0].pallets[2].getItemCount() == 30);
     REQUIRE(warehouse.shelves[0].pallets[3].getItemCount() == 5);
 
-    //Pick 20 Apples from the warehouse
+    //Pick 50 banana's from the warehouse
     bool successful = warehouse.pickItems("Banana", 50);
     REQUIRE(!successful);
 
@@ -302,3 +302,33 @@ TEST_CASE("pick items when there are not enough items", "Warehouse::pickItems"){
 }
 
 
+TEST_CASE("pick items when there are negative items", "Warehouse::pickItems"){
+
+    Warehouse warehouse = Warehouse();
+    Shelf shelf1 = Shelf();
+    shelf1.pallets = {
+        Pallet("Books", 100, 20), 
+        Pallet("Apple", 20, 40), 
+        Pallet("Banana", 25, 30), 
+        Pallet("cola", 20, 5)
+    };
+    
+    warehouse.addShelf(shelf1);
+
+    // Check if shelf is already arranged.
+    // This shelf should not already be arranged.
+    REQUIRE(warehouse.shelves[0].pallets[0].getItemCount() == 20);
+    REQUIRE(warehouse.shelves[0].pallets[1].getItemCount() == 40);
+    REQUIRE(warehouse.shelves[0].pallets[2].getItemCount() == 30);
+    REQUIRE(warehouse.shelves[0].pallets[3].getItemCount() == 5);
+
+    //Pick -20 cola's from the warehouse
+    bool successful = warehouse.pickItems("cola", -20);
+    REQUIRE(!successful);
+
+    // Check if the items are picked correctly
+    REQUIRE(warehouse.shelves[0].pallets[0].getItemCount() == 20);
+    REQUIRE(warehouse.shelves[0].pallets[1].getItemCount() == 40);
+    REQUIRE(warehouse.shelves[0].pallets[2].getItemCount() == 30);
+    REQUIRE(warehouse.shelves[0].pallets[3].getItemCount() == 5);
+}
